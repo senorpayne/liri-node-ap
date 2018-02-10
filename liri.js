@@ -4,6 +4,10 @@ var spotify = require('spotify');
 var Twitter = require('twitter');
 var fs = require("fs");
 
+
+
+
+
 var action = process.argv[2];
 var a = process.argv[3];
 
