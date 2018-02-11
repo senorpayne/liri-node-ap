@@ -3,13 +3,9 @@ var request = require('request');
 var spotify = require('spotify');
 var Twitter = require('twitter');
 var fs = require("fs");
-
-
-
-
+var keys = require("./keys.js");
 
 var action = process.argv[2];
-var a = process.argv[3];
 
 switch (action) {
     case "my-tweets":
@@ -31,6 +27,8 @@ switch (action) {
 
   function movie(){
 
+var a = process.argv[3];
+
 request("http://www.omdbapi.com/?t=" + a + "&y=&plot=short&apikey=trilogy", function(error, response, body) {
 
   // If the request is successful (i.e. if the response status code is 200)
@@ -43,3 +41,38 @@ request("http://www.omdbapi.com/?t=" + a + "&y=&plot=short&apikey=trilogy", func
   }
 })};
 movie();
+
+function tweets(){
+    var client = new twitter({
+        consumer_key: keys.twitterKeys.consumer_key,
+        consumer_secret: keys.twitterKeys.consumer_secret,
+        access_token_key: keys.twitterKeys.access_token_key,
+        access_token_secret: keys.twitterKeys.access_token_secret, 
+
+
+});
+var twitterName= process.argv[3];
+var params = {screen_name: 'twitterName'};
+client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  if (!error) {
+    console.log(tweets);
+  }
+});
+
+
+function spotify(){
+    var songname= process.argv[3];
+    spotify.search({ type: 'track', query: songname }, function(err, data) {
+        if ( err ) {
+            console.log('Error occurred: ' + err);
+            return;
+        }
+    console.log(data);
+    
+    })}
+
+function random(){
+
+}
+
+    }
