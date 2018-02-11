@@ -13,7 +13,7 @@ switch (action) {
       break;
   
     case "spotify-this-song":
-      spotify();
+      spotifyname();
       break;
   
     case "movie-this":
@@ -43,24 +43,25 @@ request("http://www.omdbapi.com/?t=" + a + "&y=&plot=short&apikey=trilogy", func
 movie();
 
 function tweets(){
-    var client = new twitter({
-        consumer_key: keys.twitterKeys.consumer_key,
-        consumer_secret: keys.twitterKeys.consumer_secret,
-        access_token_key: keys.twitterKeys.access_token_key,
-        access_token_secret: keys.twitterKeys.access_token_secret, 
+    var client = new Twitter({
+        consumer_key: 'keys.twitterKeys.consumer_key',
+        consumer_secret: 'keys.twitterKeys.consumer_secret',
+        access_token_key: 'keys.twitterKeys.access_token_key',
+        access_token_secret: 'keys.twitterKeys.access_token_secret', 
 
 
 });
-var twitterName= process.argv[3];
+
+var twitterName= mrsenorpayne1;
 var params = {screen_name: 'twitterName'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
     console.log(tweets);
   }
 });
+tweets();
 
-
-function spotify(){
+function spotifyname() {
     var songname= process.argv[3];
     spotify.search({ type: 'track', query: songname }, function(err, data) {
         if ( err ) {
@@ -70,7 +71,7 @@ function spotify(){
     console.log(data);
     
     })}
-
+spotifyname();
 function random(){
 
 }
