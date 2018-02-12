@@ -52,7 +52,7 @@ function tweets(){
 
 });
 
-var twitterName= mrsenorpayne1;
+var twitterName= 'mrsenorpayne1';
 var params = {screen_name: 'twitterName'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
