@@ -1,10 +1,9 @@
 require("dotenv").config();
 var request = require('request');
-var spotify = require('spotify');
 var Twitter = require('twitter');
 var fs = require("fs");
 var keys = require("./keys.js");
-
+var Spotify = require('node-spotify-api');
 var action = process.argv[2];
 
 switch (action) {
@@ -40,40 +39,36 @@ request("http://www.omdbapi.com/?t=" + a + "&y=&plot=short&apikey=trilogy", func
     console.log(JSON.parse(body)); 
   }
 })};
-movie();
+
 
 function tweets(){
-    var client = new Twitter({
-        consumer_key: 'keys.twitterKeys.consumer_key',
-        consumer_secret: 'keys.twitterKeys.consumer_secret',
-        access_token_key: 'keys.twitterKeys.access_token_key',
-        access_token_secret: 'keys.twitterKeys.access_token_secret', 
-
-
-});
+    var client = new Twitter(keys.twitter);
+      
 
 var twitterName= 'mrsenorpayne1';
-var params = {screen_name: 'twitterName'};
+var params = {screen_name: twitterName};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    console.log(tweets);
+    console.log(tweets[0].created_at);
+    console.log(tweets[0].text);
   }
 });
-tweets();
-
-function spotifyname() {
-    var songname= process.argv[3];
-    spotify.search({ type: 'track', query: songname }, function(err, data) {
-        if ( err ) {
-            console.log('Error occurred: ' + err);
-            return;
-        }
-    console.log(data);
-    
-    })}
-spotifyname();
-function random(){
-
 }
+function spotifyname() {
+  var spotify = new Spotify(keys.spotify);
+   
+   
+  
+     var songname= process.argv[3];
+     spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+      if (err) {
+        return console.log('Error occurred: ' + err);
+      }
+     
+    console.log(data.tracks.items[1]); 
+    });
+  
+  }
 
-    }
+
+    
