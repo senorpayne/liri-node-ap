@@ -5,7 +5,7 @@ var fs = require("fs");
 var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 var action = process.argv[2];
-
+console.log("Choose");
 switch (action) {
     case "my-tweets":
       tweets();
@@ -48,26 +48,34 @@ function tweets(){
 var twitterName= 'mrsenorpayne1';
 var params = {screen_name: twitterName};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
-  if (!error) {
-    console.log(tweets[0].created_at);
-    console.log(tweets[0].text);
+  if (!error) { for(var i = 0; i < tweets.length; i++)
+    console.log(tweets[i].created_at);
+    for(var i = 0; i < tweets.length; i++)
+    console.log(tweets[i].text);
   }
+  
 });
 }
 function spotifyname() {
   var spotify = new Spotify(keys.spotify);
    
-   
-  
      var songname= process.argv[3];
-     spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+     spotify.search({ type: 'track', query: songname }, function(err, data) {
       if (err) {
         return console.log('Error occurred: ' + err);
       }
-     
-    console.log(data.tracks.items[1]); 
+     // console.log(songname.artists); 
+   //console.log(data.tracks.items[1]); 
+   console.log("Artist: "+JSON.stringify(data.tracks.items[0].artists[0].name))
+   console.log("Track: "+JSON.stringify(data.tracks.items[0].name))
+   console.log("Link: "+JSON.stringify(data.tracks.items[0].href))
+   console.log("Album: "+JSON.stringify(data.tracks.items[0].album.name))
     });
   
+  }
+
+  function random(){
+
   }
 
 
