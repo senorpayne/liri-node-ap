@@ -77,7 +77,7 @@ function spotifyname() {
     fs.readFile("random.txt", "utf8", function(error, data){
 			if (!error) {
 				//doWhatItSaysResults = data.split(",");
-				spotifyThisSong(doWhatItSaysResults[0], doWhatItSaysResults[1]);
+				spotifyname(random[0], random[2]);
 			} else {
 				console.log("Error occurred" + error);
 			}
